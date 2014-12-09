@@ -24,6 +24,7 @@
 #
 
 # Arguments
+ODIR=
 if [ $# -gt 0 ]; then
 	# Display usage info
 	if [ $1 == "-h" -o $1 == "--help" ]; then
@@ -33,13 +34,13 @@ if [ $# -gt 0 ]; then
 		exit 0
 	# Navigate to path given in argument if available
 	elif [ $1 != "" ]; then
-		cd "$1"
+		ODIR="$1"
 	fi
 fi
 pwd
 
 # Construct tree
-ls -R | grep ":$" | 
+ls -R $ODIR | grep ":$" | 
 	sed -e 's/:$//' -e 's/[^-][^\/]*\//| -/g' -e 's/^/ /' -e 's/-|/ |/g' -e 's/-|/ |/g'
 
 exit 0
